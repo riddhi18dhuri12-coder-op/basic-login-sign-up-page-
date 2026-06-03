@@ -25,11 +25,6 @@
             margin: 0;
         }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-        }
-
         .container {
             padding: 40px;
         }
@@ -58,7 +53,6 @@
 
     <div class="navbar">
         <h1>My Dashboard</h1>
-        <a href="#" id="logout-link">Logout</a>
     </div>
 
     <div class="container">
@@ -75,18 +69,17 @@
             <p><b>Bio:</b> <span id="display-bio">-</span></p>
         </div>
 
-        <button class="logout-btn" id="logout-btn">Logout</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
 
     </div>
 
     <script>
-     
+       
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             alert("Please login first.");
             window.location.href = "auth.html";
         }
 
-       
         var saved = localStorage.getItem('userProfile');
 
         if (saved) {
@@ -100,14 +93,11 @@
             document.getElementById('display-bio').textContent = userData.bio;
         }
 
-        
+       
         function logout() {
             localStorage.removeItem('isLoggedIn');
-            window.location.href = "auth.html";
+            window.location.href = "auth.html#login";
         }
-
-        document.getElementById('logout-btn').addEventListener('click', logout);
-        document.getElementById('logout-link').addEventListener('click', logout);
     </script>
 
 </body>
