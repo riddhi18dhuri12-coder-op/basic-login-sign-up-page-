@@ -4,26 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete Profile</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
-.container {
-            display: flex;
-            justify-content: flex-start; 
-            padding-left: 40px;
-            margin-top: 40px;            
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
         }
 
-        
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 40px;
+            margin-top: 40px;
+        }
+
         #info-box {
             width: 100%;
-            max-width: 600px;         
+            max-width: 600px;
         }
 
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        h2 {
             margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         .name-row {
@@ -34,22 +52,43 @@
         .name-row .form-group {
             flex: 1;
         }
+
+        .checkbox-group label {
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #success-msg {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
         <div id="info-box">
-            <div class="profile-header">
-                <h2>Personal Information</h2>
-            </div>
+            <h2>Personal Information</h2>
 
-         
-            
             <form id="info-form">
-                
-               
+
                 <div class="name-row">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
@@ -77,7 +116,7 @@
 
                 <div class="form-group">
                     <label for="education">Highest Education</label>
-                    <select id="education" required class="select-input">
+                    <select id="education" required>
                         <option value="" disabled selected>Select your qualification</option>
                         <option value="High School">High School</option>
                         <option value="Bachelor's Degree">Bachelor's Degree</option>
@@ -89,15 +128,9 @@
                 <div class="form-group">
                     <label>Skills (Select all that apply)</label>
                     <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="HTML/CSS"> HTML & CSS
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="JavaScript"> JavaScript
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="Graphic Design"> Graphic Design
-                        </label>
+                        <label><input type="checkbox" name="skills" value="HTML/CSS"> HTML & CSS</label>
+                        <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+                        <label><input type="checkbox" name="skills" value="Graphic Design"> Graphic Design</label>
                     </div>
                 </div>
 
@@ -107,89 +140,87 @@
                 </div>
 
                 <button type="submit">Save Profile</button>
+
+                <p id="success-msg">Profile Saved Successfully!</p>
+
             </form>
         </div>
-
     </div>
 
     <script>
-        const infoForm = document.getElementById('info-form');
-        const successMsg = document.getElementById('success-msg');
+        var infoForm = document.getElementById('info-form');
+        var successMsg = document.getElementById('success-msg');
 
         infoForm.addEventListener('submit', function(event) {
-            event.preventDefault();             
-            
-            const firstName = document.getElementById('first-name').value;
-            const middleName = document.getElementById('middle-name').value;
-            const lastName = document.getElementById('last-name').value;
-            const phone = document.getElementById('contact-number').value;
-            const education = document.getElementById('education').value;
-            const bio = document.getElementById('bio').value;
-            
-            
-            const allowedLetters = /^[A-Za-z]+$/;
+            event.preventDefault();
 
-            if (!allowedLetters.test(firstName)) {
+            var firstName = document.getElementById('first-name').value;
+            var middleName = document.getElementById('middle-name').value;
+            var lastName = document.getElementById('last-name').value;
+            var phone = document.getElementById('contact-number').value;
+            var dob = document.getElementById('dob').value;
+            var education = document.getElementById('education').value;
+            var bio = document.getElementById('bio').value;
+
+            var lettersOnly = /^[A-Za-z]+$/;
+
+            if (!lettersOnly.test(firstName)) {
                 alert("Please enter a valid First Name.");
                 return;
             }
-            
-           
-            if (middleName !== "" && !allowedLetters.test(middleName)) {
+
+            if (middleName !== "" && !lettersOnly.test(middleName)) {
                 alert("Please enter a valid Middle Name.");
                 return;
             }
 
-            if (!allowedLetters.test(lastName)) {
-                alert("Please enter a valid Last Name. ");
+            if (!lettersOnly.test(lastName)) {
+                alert("Please enter a valid Last Name.");
                 return;
             }
 
-            
-            const allowedPhone = /^[0-9]+$/;
-            if (!allowedPhone.test(phone)) {
+            var numbersOnly = /^[0-9]+$/;
+            if (!numbersOnly.test(phone)) {
                 alert("Please enter a valid Contact Number.");
                 return;
             }
 
-            const selectedDate = new Date(dob);
-            const today = new Date();
+            var selectedDate = new Date(dob);
+            var today = new Date();
 
-          
             if (selectedDate > today) {
                 alert("Date of Birth cannot be in the future!");
                 return;
             }
-            
+
             if (bio.trim() === "") {
                 alert("Please write something in your Short Bio.");
                 return;
             }
-            
-           
-            const checkedSkills = [];
-            const skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
+
+            var checkedSkills = [];
+            var skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
             skillCheckboxes.forEach(function(checkbox) {
                 checkedSkills.push(checkbox.value);
             });
 
-            let fullDisplayName = firstName;
+            var fullName = firstName;
             if (middleName !== "") {
-                fullDisplayName += " " + middleName;
+                fullName = fullName + " " + middleName;
             }
-            fullDisplayName += " " + lastName;
+            fullName = fullName + " " + lastName;
 
             successMsg.style.display = "block";
 
-         
             alert(
                 "Profile Saved Successfully!\n\n" +
-                "Name: " + fullDisplayName + "\n" +
+                "Name: " + fullName + "\n" +
                 "Phone: " + phone + "\n" +
                 "Education: " + education + "\n" +
                 "Skills: " + (checkedSkills.length > 0 ? checkedSkills.join(', ') : "None selected")
             );
         });
     </script>
+
 </body>
 </html>
