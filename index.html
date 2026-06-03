@@ -6,6 +6,12 @@
     <title>Auth & Profile System</title>
     
     <link rel="stylesheet" href="css/style.css">
+    <style>
+       
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -105,54 +111,47 @@
         const loginBox  = document.getElementById('login-box');
         const infoBox   = document.getElementById('info-box');
 
-       
+        
         const toLoginLink  = document.getElementById('to-login');
         const toSignupLink = document.getElementById('to-signup');
 
-        
+     
         const signupForm = document.getElementById('signup-form');
         const loginForm  = document.getElementById('login-form');
         const infoForm   = document.getElementById('info-form');
 
-   
-
-        
         toLoginLink.addEventListener('click', function(event) {
             event.preventDefault();             
             signupBox.classList.add('hidden');  
             loginBox.classList.remove('hidden'); 
         });
 
-   
+
         toSignupLink.addEventListener('click', function(event) {
             event.preventDefault();             
             loginBox.classList.add('hidden');   
             signupBox.classList.remove('hidden');
         });
 
-       
         signupForm.addEventListener('submit', function(event) {
             event.preventDefault();             
             signupBox.classList.add('hidden');  
             infoBox.classList.remove('hidden');  
         });
 
-        
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();             
             loginBox.classList.add('hidden');   
             infoBox.classList.remove('hidden');  
         });
 
-      
+       
         infoForm.addEventListener('submit', function(event) {
             event.preventDefault();             
             
-           
             const fullName = document.getElementById('full-name').value;
             const phone = document.getElementById('contact-number').value;
             const education = document.getElementById('education').value;
-            
             
             const checkedSkills = [];
             const skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
@@ -161,7 +160,6 @@
                 checkedSkills.push(checkbox.value);
             });
 
-         
             alert(
                 "Profile Saved Successfully!\n\n" +
                 "Name: " + fullName + "\n" +
