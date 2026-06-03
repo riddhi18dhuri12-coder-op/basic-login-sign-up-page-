@@ -3,94 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login / Sign Up Page</title>
-    <style>
-        body {
-            font-family: 'Segoe UI';
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
-            font-size: 14px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .toggle-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .toggle-text a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Auth & Profile System</title>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
+        
         <div id="signup-box">
             <h2>Create Account</h2>
             <form id="signup-form">
@@ -123,79 +43,132 @@
             <p class="toggle-text">Don't have an account? <a href="#" id="to-signup">Sign up here</a></p>
         </div>
 
-       
         <div id="info-box" class="hidden">
             <h2>Personal Information</h2>
-            <p style="text-align: center; color: green; font-size: 14px;">Success! Please complete your profile.</p>
+            <p class="success-message">Success! Please complete your profile.</p>
+            
             <form id="info-form">
                 <div class="form-group">
                     <label for="full-name">Full Name</label>
                     <input type="text" id="full-name" required placeholder="John Doe">
                 </div>
+
+                <div class="form-group">
+                    <label for="contact-number">Contact Number</label>
+                    <input type="tel" id="contact-number" required placeholder="123-456-7890">
+                </div>
+
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="education">Highest Education</label>
+                    <select id="education" required class="select-input">
+                        <option value="" disabled selected>Select your qualification</option>
+                        <option value="High School">High School</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="Ph.D.">Ph.D.</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Skills (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="HTML/CSS"> HTML & CSS
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="JavaScript"> JavaScript
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="Graphic Design"> Graphic Design
+                        </label>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="bio">Short Bio</label>
                     <textarea id="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
                 </div>
+
                 <button type="submit">Save Profile</button>
             </form>
         </div>
     </div>
 
-   
     <script>
        
         const signupBox = document.getElementById('signup-box');
-        const loginBox = document.getElementById('login-box');
-        const infoBox = document.getElementById('info-box');
-
-        const toLoginLink = document.getElementById('to-login');
-        const toSignupLink = document.getElementById('to-signup');
-
-        const signupForm = document.getElementById('signup-form');
-        const loginForm = document.getElementById('login-form');
-        const infoForm = document.getElementById('info-form');
+        const loginBox  = document.getElementById('login-box');
+        const infoBox   = document.getElementById('info-box');
 
        
-        toLoginLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Stop the link from trying to open a new page
-            signupBox.classList.add('hidden');
-            loginBox.classList.remove('hidden');
+        const toLoginLink  = document.getElementById('to-login');
+        const toSignupLink = document.getElementById('to-signup');
+
+        
+        const signupForm = document.getElementById('signup-form');
+        const loginForm  = document.getElementById('login-form');
+        const infoForm   = document.getElementById('info-form');
+
+   
+
+        
+        toLoginLink.addEventListener('click', function(event) {
+            event.preventDefault();             
+            signupBox.classList.add('hidden');  
+            loginBox.classList.remove('hidden'); 
         });
 
-        toSignupLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginBox.classList.add('hidden');
+   
+        toSignupLink.addEventListener('click', function(event) {
+            event.preventDefault();             
+            loginBox.classList.add('hidden');   
             signupBox.classList.remove('hidden');
         });
 
-        
-        
        
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();             
+            signupBox.classList.add('hidden');  
+            infoBox.classList.remove('hidden');  
+        });
+
+        
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();             
+            loginBox.classList.add('hidden');   
+            infoBox.classList.remove('hidden');  
+        });
+
+      
+        infoForm.addEventListener('submit', function(event) {
+            event.preventDefault();             
             
            
-            signupBox.classList.add('hidden');
-            infoBox.classList.remove('hidden');
-        });
-
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            const fullName = document.getElementById('full-name').value;
+            const phone = document.getElementById('contact-number').value;
+            const education = document.getElementById('education').value;
             
-          
-            loginBox.classList.add('hidden');
-            infoBox.classList.remove('hidden');
-        });
+            
+            const checkedSkills = [];
+            const skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
+            
+            skillCheckboxes.forEach(function(checkbox) {
+                checkedSkills.push(checkbox.value);
+            });
 
-       
-        infoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Profile saved successfully! Thank you.');
+         
+            alert(
+                "Profile Saved Successfully!\n\n" +
+                "Name: " + fullName + "\n" +
+                "Phone: " + phone + "\n" +
+                "Education: " + education + "\n" +
+                "Skills: " + (checkedSkills.length > 0 ? checkedSkills.join(', ') : "None selected")
+            );
         });
     </script>
 </body>
