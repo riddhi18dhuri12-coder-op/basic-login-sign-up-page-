@@ -146,9 +146,9 @@
             }
 
             
-            const allowedPhone = /^[0-9\s\-]+$/;
+            const allowedPhone = /^[0-9]+$/;
             if (!allowedPhone.test(phone)) {
-                alert("Please enter a valid Contact Number. Numbers, dashes, and spaces only.");
+                alert("Please enter a valid Contact Number.");
                 return;
             }
 
