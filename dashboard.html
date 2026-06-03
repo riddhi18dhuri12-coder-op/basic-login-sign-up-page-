@@ -1,1 +1,102 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #4CAF50;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 25px;
+            max-width: 500px;
+        }
+
+        .logout-btn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>My Dashboard</h1>
+        <a href="auth.html">Logout</a>
+    </div>
+
+    <div class="container">
+
+        <h2 id="welcome-msg">Welcome!</h2>
+
+        <div class="card">
+            <h3>Your Profile</h3>
+
+            <p><b>Full Name:</b> <span id="display-name">-</span></p>
+            <p><b>Phone:</b> <span id="display-phone">-</span></p>
+            <p><b>Date of Birth:</b> <span id="display-dob">-</span></p>
+            <p><b>Education:</b> <span id="display-education">-</span></p>
+            <p><b>Bio:</b> <span id="display-bio">-</span></p>
+        </div>
+
+        <button class="logout-btn" onclick="window.location.href='auth.html'">Logout</button>
+
+    </div>
+
+    <script>
+        var saved = localStorage.getItem('userProfile');
+
+        if (saved) {
+            var userData = JSON.parse(saved);
+
+            document.getElementById('welcome-msg').textContent = "Welcome, " + userData.firstName + "!";
+            document.getElementById('display-name').textContent = userData.firstName + " " + userData.lastName;
+            document.getElementById('display-phone').textContent = userData.phone;
+            document.getElementById('display-dob').textContent = userData.dob;
+            document.getElementById('display-education').textContent = userData.education;
+            document.getElementById('display-bio').textContent = userData.bio;
+        } else {
+            alert("No profile found. Please login first.");
+            window.location.href = "auth.html";
+        }
+    </script>
+
+</body>
+</html>
