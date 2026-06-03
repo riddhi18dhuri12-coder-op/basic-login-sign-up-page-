@@ -6,28 +6,33 @@
     <title>Complete Profile</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-      
+.container {
+            display: flex;
+            justify-content: flex-start; 
+            padding-left: 40px;
+            margin-top: 40px;            
+        }
+
+        
+        #info-box {
+            width: 100%;
+            max-width: 600px;         
+        }
+
         .profile-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-        
-        .logout-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.2s;
+
+        .name-row {
+            display: flex;
+            gap: 10px;
         }
 
-        .logout-btn:hover {
-            background-color: #c0392b;
+        .name-row .form-group {
+            flex: 1;
         }
     </style>
 </head>
@@ -38,15 +43,26 @@
         <div id="info-box">
             <div class="profile-header">
                 <h2>Personal Information</h2>
-              
             </div>
 
-            <p class="success-message">Success! Please complete your profile.</p>
+         
             
             <form id="info-form">
-                <div class="form-group">
-                    <label for="full-name">Full Name</label>
-                    <input type="text" id="full-name" required placeholder="John Doe">
+                
+               
+                <div class="name-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" required placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="middle-name">Middle Name</label>
+                        <input type="text" id="middle-name" placeholder="Robert">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" required placeholder="Doe">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -87,47 +103,88 @@
 
                 <div class="form-group">
                     <label for="bio">Short Bio</label>
-                    <textarea id="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                    <textarea id="bio" rows="3" required placeholder="Tell us about yourself..."></textarea>
                 </div>
 
                 <button type="submit">Save Profile</button>
             </form>
-              <button type="button" id="logout-btn" class="logout-btn">Logout</button>
         </div>
 
     </div>
 
     <script>
         const infoForm = document.getElementById('info-form');
-        const logoutBtn = document.getElementById('logout-btn');
-
-        // Logout Event Listener
-        logoutBtn.addEventListener('click', function() {
-            // Optional: Add a confirmation dialog before logging out
-            if (confirm("Are you sure you want to logout?")) {
-                // Redirect back to the authentication page
-                window.location.href = "index.html";
-            }
-        });
-
+        const successMsg = document.getElementById('success-msg');
 
         infoForm.addEventListener('submit', function(event) {
             event.preventDefault();             
             
-            const fullName = document.getElementById('full-name').value;
+            const firstName = document.getElementById('first-name').value;
+            const middleName = document.getElementById('middle-name').value;
+            const lastName = document.getElementById('last-name').value;
             const phone = document.getElementById('contact-number').value;
             const education = document.getElementById('education').value;
+            const bio = document.getElementById('bio').value;
             
+            
+            const allowedLetters = /^[A-Za-z]+$/;
+
+            if (!allowedLetters.test(firstName)) {
+                alert("Please enter a valid First Name.");
+                return;
+            }
+            
+           
+            if (middleName !== "" && !allowedLetters.test(middleName)) {
+                alert("Please enter a valid Middle Name.");
+                return;
+            }
+
+            if (!allowedLetters.test(lastName)) {
+                alert("Please enter a valid Last Name. ");
+                return;
+            }
+
+            
+            const allowedPhone = /^[0-9\s\-]+$/;
+            if (!allowedPhone.test(phone)) {
+                alert("Please enter a valid Contact Number. Numbers, dashes, and spaces only.");
+                return;
+            }
+
+            const selectedDate = new Date(dob);
+            const today = new Date();
+
+          
+            if (selectedDate > today) {
+                alert("Date of Birth cannot be in the future!");
+                return;
+            }
+            
+            if (bio.trim() === "") {
+                alert("Please write something in your Short Bio.");
+                return;
+            }
+            
+           
             const checkedSkills = [];
             const skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
-            
             skillCheckboxes.forEach(function(checkbox) {
                 checkedSkills.push(checkbox.value);
             });
 
+            let fullDisplayName = firstName;
+            if (middleName !== "") {
+                fullDisplayName += " " + middleName;
+            }
+            fullDisplayName += " " + lastName;
+
+            successMsg.style.display = "block";
+
+         
             alert(
                 "Profile Saved Successfully!\n\n" +
-                "Name: " + fullName + "\n" +
+                "Name: " + fullDisplayName + "\n" +
                 "Phone: " + phone + "\n" +
                 "Education: " + education + "\n" +
                 "Skills: " + (checkedSkills.length > 0 ? checkedSkills.join(', ') : "None selected")
