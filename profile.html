@@ -148,6 +148,12 @@
     </div>
 
     <script>
+        // If not logged in, send back to auth
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            alert("Please login first.");
+            window.location.href = "auth.html";
+        }
+
         var infoForm = document.getElementById('info-form');
         var successMsg = document.getElementById('success-msg');
 
@@ -161,7 +167,7 @@
             var dob = document.getElementById('dob').value;
             var education = document.getElementById('education').value;
             var bio = document.getElementById('bio').value;
-            
+
             var lettersOnly = /^[A-Za-z]+$/;
 
             if (!lettersOnly.test(firstName)) {
@@ -210,16 +216,19 @@
             }
             fullName = fullName + " " + lastName;
 
-            successMsg.style.display = "block";
-             var userData = {
-             firstName: firstName,
-             lastName:  lastName,
-             phone:     phone,
-             dob:       dob,
-            education: education,
-            bio:       bio
+            var userData = {
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                dob: dob,
+                education: education,
+                bio: bio
             };
-           localStorage.setItem('userProfile', JSON.stringify(userData));
+
+            localStorage.setItem('userProfile', JSON.stringify(userData));
+
+            successMsg.style.display = "block";
+
             alert(
                 "Profile Saved Successfully!\n\n" +
                 "Name: " + fullName + "\n" +
@@ -227,6 +236,8 @@
                 "Education: " + education + "\n" +
                 "Skills: " + (checkedSkills.length > 0 ? checkedSkills.join(', ') : "None selected")
             );
+
+            window.location.href = "dashboard.html";
         });
     </script>
 
