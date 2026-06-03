@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auth System</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
         .container {
             display: flex;
             justify-content: flex-start;
@@ -18,15 +22,63 @@
             max-width: 400px;
         }
 
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .toggle-text {
+            margin-top: 15px;
+        }
+
+        .toggle-text a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .toggle-text a:hover {
+            text-decoration: underline;
+        }
+
         .hidden {
             display: none !important;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        
+
         <div id="signup-box">
             <h2>Create Account</h2>
             <form id="signup-form">
@@ -62,34 +114,32 @@
     </div>
 
     <script>
-        const signupBox = document.getElementById('signup-box');
-        const loginBox  = document.getElementById('login-box');
-
-        const toLoginLink  = document.getElementById('to-login');
-        const toSignupLink = document.getElementById('to-signup');
-
-        const signupForm = document.getElementById('signup-form');
-        const loginForm  = document.getElementById('login-form');
+        var signupBox = document.getElementById('signup-box');
+        var loginBox  = document.getElementById('login-box');
+        var toLoginLink  = document.getElementById('to-login');
+        var toSignupLink = document.getElementById('to-signup');
+        var signupForm = document.getElementById('signup-form');
+        var loginForm  = document.getElementById('login-form');
 
         toLoginLink.addEventListener('click', function(event) {
-            event.preventDefault();             
-            signupBox.classList.add('hidden');  
-            loginBox.classList.remove('hidden'); 
+            event.preventDefault();
+            signupBox.classList.add('hidden');
+            loginBox.classList.remove('hidden');
         });
 
         toSignupLink.addEventListener('click', function(event) {
-            event.preventDefault();             
-            loginBox.classList.add('hidden');   
+            event.preventDefault();
+            loginBox.classList.add('hidden');
             signupBox.classList.remove('hidden');
         });
 
         signupForm.addEventListener('submit', function(event) {
-            event.preventDefault();             
-            window.location.href = "profile.html";  
+            event.preventDefault();
+            window.location.href = "profile.html";
         });
 
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();             
+            event.preventDefault();
             window.location.href = "dashboard.html";
         });
     </script>
