@@ -6,6 +6,18 @@
     <title>Auth System</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 40px;
+            margin-top: 40px;
+        }
+
+        #signup-box, #login-box {
+            width: 100%;
+            max-width: 400px;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -59,7 +71,6 @@
         const signupForm = document.getElementById('signup-form');
         const loginForm  = document.getElementById('login-form');
 
-        
         toLoginLink.addEventListener('click', function(event) {
             event.preventDefault();             
             signupBox.classList.add('hidden');  
@@ -72,18 +83,14 @@
             signupBox.classList.remove('hidden');
         });
 
-
         signupForm.addEventListener('submit', function(event) {
             event.preventDefault();             
-            
             window.location.href = "profile.html";  
         });
 
-  
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();             
-       
-            window.location.href = "profile.html";  
+            window.location.href = "dashboard.html";
         });
     </script>
 </body>
