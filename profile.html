@@ -161,7 +161,7 @@
             var dob = document.getElementById('dob').value;
             var education = document.getElementById('education').value;
             var bio = document.getElementById('bio').value;
-
+            
             var lettersOnly = /^[A-Za-z]+$/;
 
             if (!lettersOnly.test(firstName)) {
@@ -211,7 +211,15 @@
             fullName = fullName + " " + lastName;
 
             successMsg.style.display = "block";
-
+             var userData = {
+             firstName: firstName,
+             lastName:  lastName,
+             phone:     phone,
+             dob:       dob,
+            education: education,
+            bio:       bio
+            };
+           localStorage.setItem('userProfile', JSON.stringify(userData));
             alert(
                 "Profile Saved Successfully!\n\n" +
                 "Name: " + fullName + "\n" +
